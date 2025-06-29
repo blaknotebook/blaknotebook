@@ -11,37 +11,41 @@
       word-wrap: break-word;
       margin: 0;
       padding: 0;
-    }
-
-    #terminal {
-      width: 50vw; /* Half the screen width */
-      max-width: 50vw; /* Maximum width of half the screen */
-      position: absolute; /* Fixed positioning from the top left */
-      top: 0;
-      left: 0;
-      white-space: pre-wrap;
-      padding: 2rem;
-    }
-
-    @media (max-width: 768px) {
-      #terminal {
-        width: 100vw; /* On mobile, full width of the screen */
-        max-width: 100vw; /* Ensure it doesn't exceed the screen width */
-        top: 0; /* Ensure it starts from the top of the screen */
-        left: 0; /* Ensure it starts from the left of the screen */
-        padding: 1rem; /* Optional: adjust padding for smaller screens */
-      }
-    }
-
-    body {
       background-color: #171f1f;
       color: #F7EDED;
       font-family: 'Courier New', monospace;
-      font-size: 16px; 
-      line-height: 1.4;
-      padding: 0;
       white-space: pre-wrap;
       word-break: break-word;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;  /* This ensures vertical positioning starts at the top */
+      padding: 0 5vw; /* Horizontal centering */
+    }
+
+    #terminal {
+      width: 90vw; /* Adjust terminal width for mobile */
+      height: 120vw; /* Square terminal for mobile */
+      margin-top: 5vh; /* Top margin set to 5% of the viewport height */
+      padding: 5%; /* Padding inside terminal */
+      background-color: #171f1f;
+      color: #F7EDED;
+      font-size: calc(1vw + 1vh); /* Dynamic font size based on the viewport width and height */
+      line-height: 1.4;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    #terminal-text {
+      width: 100%;
+      text-align: left;
+      padding-left: 5%; /* Ensure text padding on left */
+      padding-right: 5%; /* Ensure text padding on right */
     }
 
     .green {
@@ -71,13 +75,63 @@
       0%, 50% { opacity: 1; }
       50.1%, 100% { opacity: 0; }
     }
+
+    /* Mobile and tablet adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: 0 5vw; /* Adjust the margin for mobile */
+        padding-top: 5vh; /* 5% margin at the top */
+      }
+
+      #terminal {
+        width: 90vw; /* Adjust terminal width for mobile */
+        height: 120vw; /* Square terminal for mobile */
+        margin-top: 5vh; /* Top margin of 5% of the viewport height */
+        padding: 5%; /* Padding inside terminal */
+        font-size: calc(0.2vw + 1vh); /* Adjust the font size dynamically based on viewport */
+      }
+
+      #terminal-text {
+        padding-left: 5%; /* Maintain consistent padding on the left */
+        padding-right: 5%; /* Maintain consistent padding on the right */
+      }
+    }
+
+    /* Portrait Mode: When mobile is in portrait orientation */
+    @media (orientation: portrait) and (max-width: 768px) {
+      #terminal {
+        width: 90vw; /* Terminal takes 90% of the screen width */
+        height: 80vw; /* Square terminal */
+        margin-top: 0vh; /* Top margin set to 5% of screen height */
+        padding: 5%; /* 5% padding on all sides */
+        font-size: calc(2.5vw + 1vh); /* Dynamic font size for portrait */
+      }
+    }
+
+    /* Landscape Mode: When mobile is in landscape orientation */
+    @media (orientation: landscape) and (max-width: 768px) {
+      #terminal {
+        width: 40vw; /* Terminal width for landscape */
+        height: 30vw; /* Adjust the height for landscape */
+        margin-top: 5vh; /* Slight margin on top */
+        padding: 5%; /* 5% padding on all sides */
+        font-size: calc(0.99vw + 2vh); /* Adjust font size for landscape */
+      }
+
+      #terminal-text {
+        padding-left: 5%; /* Maintain consistent padding on the left */
+        padding-right: 5%; /* Maintain consistent padding on the right */
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="terminal"></div>
+  <div id="terminal">
+    <div id="terminal-text"></div>
+  </div>
 
   <script>
-    const terminal = document.getElementById('terminal');
+    const terminalText = document.getElementById('terminal-text');
 
     const lines = [
       { text: 'b:\\games\\horror\\document>dir', className: 'green' },
@@ -93,35 +147,33 @@
     const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
 
     let i = 0;
-    let glitchInterval;
 
     // Function to simulate a glitch effect on random characters in any line
     function glitchTextEffect(div, originalText) {
-  const randomPos = Math.floor(Math.random() * originalText.length);
-  const charAtPos = originalText[randomPos];
+      const randomPos = Math.floor(Math.random() * originalText.length);
+      const charAtPos = originalText[randomPos];
 
-  // Skip certain characters (e.g., 0, dots, etc.)
-  if (charAtPos === '.' || charAtPos === '0') {
-    return;  // Skip changing dots and the number 0
-  }
+      if (charAtPos === '.' || charAtPos === '0') {
+        return;  // Skip changing dots and the number 0
+      }
 
-  // Randomly choose from uppercase, lowercase, digits, and symbols
-  const randomChar = String.fromCharCode(Math.floor(Math.random() * 94) + 33); // ASCII range from 33 (!) to 126 (~)
+      // Randomly choose from uppercase, lowercase, digits, and symbols
+      const randomChar = String.fromCharCode(Math.floor(Math.random() * 94) + 33); // ASCII range from 33 (!) to 126 (~)
 
-  const textArray = originalText.split('');
-  textArray[randomPos] = randomChar; // Replace character with random character
-  div.textContent = textArray.join('');
+      const textArray = originalText.split('');
+      textArray[randomPos] = randomChar;
+      div.textContent = textArray.join('');
 
-  const glitchDuration = Math.floor(Math.random() * 1500) + 500; // Random glitch duration
-  setTimeout(() => {
-    div.textContent = originalText; // Revert to original text after glitch
-  }, glitchDuration);
-}
+      const glitchDuration = Math.floor(Math.random() * 1500) + 500;
+      setTimeout(() => {
+        div.textContent = originalText;
+      }, glitchDuration);
+    }
 
     function typeLine({ text, className = '' }, callback) {
       const div = document.createElement('div');
       if (className) div.classList.add(className);
-      terminal.appendChild(div);
+      terminalText.appendChild(div);
 
       let j = 0;
       const interval = setInterval(() => {
@@ -140,7 +192,7 @@
           }
           callback();
         }
-      }, 30);
+      }, 30); // Adjust delay between characters
     }
 
     function typeAllLines() {
@@ -154,30 +206,26 @@
           });
         }, (i === 6 ? delayBeforeDownload : 0));
       } else {
-        // Create a separate div for b:>_ under the terminal text
         const cursorDiv = document.createElement('div');
-        cursorDiv.classList.add('green');  // Set the text color to green
+        cursorDiv.classList.add('green');
 
-        // Create the static b:>
         const prompt = document.createElement('span');
         prompt.textContent = 'b:>';
         cursorDiv.appendChild(prompt);
 
-        // Create the blinking cursor (_)
         const blinkingCursor = document.createElement('span');
-        blinkingCursor.className = 'cursor blink';  // Only _ will blink
+        blinkingCursor.className = 'cursor blink';
         blinkingCursor.textContent = '_';
         cursorDiv.appendChild(blinkingCursor);
 
-        // Append the cursor div under the terminal text
-        terminal.appendChild(cursorDiv);
+        terminalText.appendChild(cursorDiv);
       }
     }
 
     // Glitch every 5 seconds on all lines (excluding the prompt and cursor)
     function startGlitch() {
       glitchInterval = setInterval(() => {
-        const allDivs = terminal.getElementsByTagName('div'); // Get all the divs (lines)
+        const allDivs = terminalText.getElementsByTagName('div'); // Get all the divs (lines)
         for (let div of allDivs) {
           if (div.textContent.length > 0 && !div.textContent.includes('b:>') && !div.textContent.includes('_')) {
             glitchTextEffect(div, div.textContent);  // Apply glitch effect on each line except b:> and _ 
