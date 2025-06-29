@@ -19,7 +19,7 @@
       height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;  /* This ensures vertical positioning starts at the top */
+      align-items: flex-start;
       padding: 0 5vw; /* Horizontal centering */
     }
 
@@ -32,13 +32,15 @@
       line-height: 1.4;
       padding: 5%; /* Set padding for inner text */
       overflow-y: auto;
-      margin-top: 5vw;
+      margin-top: 5vh;
       white-space: pre-wrap;
       word-wrap: break-word;
       box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      position: relative;
+      animation: flicker 3s infinite; /* Apply flickering animation to the terminal */
     }
 
     #terminal-text {
@@ -46,6 +48,7 @@
       text-align: left;
       padding-left: 5%; /* Ensure text padding on left */
       padding-right: 5%; /* Ensure text padding on right */
+      animation: flicker 3s infinite; /* Apply the same flickering animation to the text */
     }
 
     .green {
@@ -74,6 +77,32 @@
     @keyframes blink {
       0%, 50% { opacity: 1; }
       50.1%, 100% { opacity: 0; }
+    }
+
+    /* Random flickering effect on the green margin */
+    @keyframes flicker {
+      0% { opacity: 1; }
+      50% { opacity: 0.9; }
+      51% { opacity: 1; }
+      52% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    #terminal {
+      animation: flicker 10s infinite;  
+    }
+
+    /* Define the subtle screen jam effect */
+    @keyframes screenJam {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-0.5px); }   /* Move slightly right */
+      51% { transform: translateX( 0.5px); }  /* Move slightly left */
+      52% { transform: translateX( 0); }
+      100% { transform: translateX(0); }    /* Return to original position */
+    }
+
+    #terminal {
+      animation: screenJam 5s ease-in-out infinite;  
     }
 
     /* Mobile and tablet adjustments */
@@ -107,13 +136,6 @@
         font-size: 4.3vw; /* Dynamic font size for portrait */
       }
     }
-
-    // Lock the orientation to portrait mode when the page loads
-  window.onload = function() {
-    lockOrientation();
-  };
-
-    }
   </style>
 </head>
 <body>
@@ -125,20 +147,20 @@
     const terminalText = document.getElementById('terminal-text');
 
     const lines = [
-      { text: 'b:\\games\\horror\\document>dir', className: 'green' },
+      { text: 'b:\\games\\horror\\document>dir', className: 'green' },  // First line
       { text: '............................' },
       { text: '???,??? bytes [document.rar]' },
       { text: 'blak notebook™ © 2025 [game]' },
       { text: 'analog horror document ttrpg' },
       { text: '............................' },
-      { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },
+      { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },  // Seventh line with additional delay
       { text: '............................' }
     ];
  
-
     const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
 
     let i = 0;
+    let blinkCount = 0;  // Counter to track the number of blinks
 
     // Function to simulate a glitch effect on random characters in any line
     function glitchTextEffect(div, originalText) {
@@ -162,7 +184,7 @@
       }, glitchDuration);
     }
 
-    function typeLine({ text, className = '' }, callback) {
+    function typeLine({ text, className = '' }, callback, delay = 30) {
       const div = document.createElement('div');
       if (className) div.classList.add(className);
       terminalText.appendChild(div);
@@ -184,19 +206,21 @@
           }
           callback();
         }
-      }, 30); // Adjust delay between characters
+      }, delay); // Typing delay
     }
 
     function typeAllLines() {
-      const delayBeforeDownload = 1000;
+      const delayBeforeSecondLine = 2000;  // 2 seconds delay before second line starts
+      const delayBeforeSecondLineAdjusted = delayBeforeSecondLine * 0.8; // 0.8 times the current second line delay
+      const delayBeforeDownload = delayBeforeSecondLineAdjusted * 1.2;  // 1.2 times the adjusted delay for seventh line
 
       if (i < lines.length) {
         setTimeout(() => {
           typeLine(lines[i], () => {
             i++;
             typeAllLines();
-          });
-        }, (i === 6 ? delayBeforeDownload : 0));
+          }, (i === 0) ? 150 : 30);  // First line typed slower (150ms) and the rest with regular speed (30ms)
+        }, (i === 1) ? delayBeforeSecondLineAdjusted : (i === 6) ? delayBeforeDownload : 0);  // Apply the specific delays
       } else {
         const cursorDiv = document.createElement('div');
         cursorDiv.classList.add('green');
@@ -211,6 +235,16 @@
         cursorDiv.appendChild(blinkingCursor);
 
         terminalText.appendChild(cursorDiv);
+
+        // Modify the blinking behavior to introduce a small delay every 3rd blink
+        setInterval(() => {
+          blinkCount++;
+          if (blinkCount % 5 === 0) {
+            blinkingCursor.style.animationDuration = '1.5s';  // Delay for every 3rd blink
+          } else {
+            blinkingCursor.style.animationDuration = '1s';  // Regular blink duration
+          }
+        }, 1000);  // Update every 1 second to check the count
       }
     }
 
