@@ -108,20 +108,12 @@
       }
     }
 
-    /* Landscape Mode: When mobile is in landscape orientation */
-    @media (orientation: landscape) 1080(max-width: 1490px) {
-      #terminal {
-        width: 60vh; /* Terminal width for landscape */
-        height: 45vh; /* Adjust the height for landscape */
-        margin-top: 1vh; /* Slight margin on top */
-        padding: 5%; /* 5% padding on all sides */
-        font-size: 2.4vw; /* Adjust font size for landscape */
-      }
-
-      #terminal-text {
-        padding-left: 5%; /* Maintain consistent padding on the left */
-        padding-right: 5%; /* Maintain consistent padding on the right */
-      }
+    // Lock orientation to portrait mode
+  if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('portrait').catch(function(err) {
+          console.log("Orientation lock failed: " + err);
+      });
+  }
     }
   </style>
 </head>
