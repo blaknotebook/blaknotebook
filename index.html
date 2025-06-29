@@ -108,12 +108,11 @@
       }
     }
 
-    // Lock orientation to portrait mode
-  if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('portrait').catch(function(err) {
-          console.log("Orientation lock failed: " + err);
-      });
-  }
+    // Lock the orientation to portrait mode when the page loads
+  window.onload = function() {
+    lockOrientation();
+  };
+
     }
   </style>
 </head>
@@ -135,6 +134,7 @@
       { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },
       { text: '............................' }
     ];
+ 
 
     const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
 
