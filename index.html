@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blak notebook™</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-size: 16px;  /* Default font size for larger screens */
+      word-wrap: break-word;  /* Prevent text from overflowing */
+    }
+
+    #terminal {
+      width: 100%;
+      max-width: 100vw;  /* Ensures the text uses the full width of the screen */
+      white-space: pre-wrap;  /* Maintains spaces and line breaks as in terminal */
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;  /* Set a minimum font size */
+      }
+
+      #terminal {
+        max-width: 95vw;  /* Ensure text is not too wide on mobile */
+      }
+    }
+    
+    body {
+      background-color: #171f1f;
+      color: #F7EDED;
+      font-family: 'Courier New', monospace;
+      font-size: 16px; word-wrap: break-word;
+      line-height: 1.4;
+      padding: 2rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .green {
+      color: #00cc66;
+    }
+    .blue-link {
+      color: #0357FC;
+      text-decoration: none;
+    }
+    .blue-link:hover {
+      color: #BA04A7;
+    }
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s steps(1) infinite;
+      color: #00cc66;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.1%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+
+  <script>
+    const terminal = document.getElementById('terminal');
+
+    const lines = [
+      { text: 'b:\\games\\horror\\document>dir', className: 'green' },
+      { text: '............................' },
+      { text: '???,??? bytes [document.rar]' },
+      { text: 'blak notebook™ © 2025 [game]' },
+      { text: 'analog horror document ttrpg' },
+      { text: '............................' },
+      { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },
+      { text: '............................' },  // newly added line
+      { text: 'b:>', className: 'green' }
+    ];
+
+    const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
+
+    let i = 0;
+
+    function typeLine({ text, className = '' }, callback) {
+      const div = document.createElement('div');
+      if (className) div.classList.add(className);
+      terminal.appendChild(div);
+
+      let j = 0;
+      const interval = setInterval(() => {
+        div.textContent += text[j];
+        j++;
+        if (j >= text.length) {
+          clearInterval(interval);
+          if (text.includes("download_document.rar")) {
+            const a = document.createElement('a');
+            a.href = downloadHref;
+            a.className = 'blue-link';
+            a.textContent = 'download_document.rar  [ ↓ ]';
+            div.innerHTML = '';
+            div.appendChild(a);
+          }
+          callback();
+        }
+      }, 30);
+    }
+
+    function typeAllLines() {
+      const delayBeforeDownload = 1000;
+      const delayBeforeCursor = 500;
+
+      if (i < lines.length) {
+        setTimeout(() => {
+          typeLine(lines[i], () => {
+            i++;
+            typeAllLines();
+          });
+        }, (i === 6 ? delayBeforeDownload : 0) + (i === 7 ? delayBeforeCursor : 0));
+      } else {
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        cursor.textContent = '_';
+        terminal.lastChild.appendChild(cursor);
+      }
+    }
+
+    typeAllLines();
+  </script>
+</body>
+</html>
