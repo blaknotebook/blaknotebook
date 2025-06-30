@@ -99,44 +99,25 @@ body {
  animation: screenJam 5s ease-in-out infinite;  
 }
 
- @media (max-width: 1024px) {
-      #terminal {
-        display: none; /* Hide terminal */
-      }
-
-#message {
-  display: block; /* Show message */
-  color: red; /* Set text color to red */
-  font-size: 18px; /* Adjust font size for smaller screens */
-  font-weight: bold; /* Make text bold */
-  background-color: #171f1f; /* Set background color */
-  padding: 10px; /* Add padding to make it look nicer */
-  position: absolute;
-  top: 5vh; /* Position the message near the top */
-  width: 100%; /* Full width of the screen */
-  text-align: center; /* Center the text */
-  font-family: 'Courier New', monospace; /* Set the font */
-  border: 2px solid red; /* Optional: add a red border to enhance visibility */
+@media (max-width: 768px) {
+ body {
+ padding: 5%;
 }
 
-    /* Default state for message (hidden) */
-    #message {
-      display: none;
-    }
-
-
+#terminal {
+ width: 300;
+ height: 240;
+ padding: 3%;
+ font-size: 15.6;        
 }
+}
+
 
  </style>
 </head>
 <body>
   <div id="terminal">
     <div id="terminal-text"></div>
-  </div>
-
-  <div id="message">
-    Desktop or Laptop Only. <br>
-    Email me at: <a href="mailto:found@blaknotebook.xyz" class="blue-link">found@blaknotebook.xyz</a>
   </div>
 
   <script>
