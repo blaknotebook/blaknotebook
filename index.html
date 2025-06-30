@@ -6,137 +6,118 @@
   <title>blak notebook™</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-size: 16px;
-      word-wrap: break-word;
-      margin: 0;
-      padding: 0;
-      background-color: black;
-      color: #F7EDED;
-      font-family: 'Courier New', monospace;
-      white-space: pre-wrap;
-      word-break: break-word;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 0 5vw; /* Horizontal centering */
-    }
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: #F7EDED;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center everything vertically and horizontally */
+}
 
-    #terminal {
-      width: 28vw; /* Default terminal width for larger screens */
-      height: 22vw; /* Default terminal height for larger screens */
-      background-color: #171f1f;
-      color: #F7EDED;
-      font-size: 1.5vw;
-      line-height: 1.4;
-      padding: 3%; /* Set padding for inner text */
-      overflow-y: auto;
-      margin-top: 15vh;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      animation: flicker 3s infinite; /* Apply flickering animation to the terminal */
-    }
+#terminal {
+  width: 500px;
+  height: 400px;
+  background-color: #171f1f;
+  color: #F7EDED;
+  font-size: 26px;
+  line-height: 1.7;
+  padding: 3%;
+  margin-top: 0;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+}
 
-    #terminal-text {
-      width: 100%;
-      text-align: left;
-      padding-left: 5%; /* Ensure text padding on left */
-      padding-right: 5%; /* Ensure text padding on right */
-      animation: flicker 3s infinite; /* Apply the same flickering animation to the text */
-    }
+#terminal-text {
+  width: 100%;
+  text-align: left;
+  padding-left: 5%;
+  padding-right: 5%;
+}
 
-    .green {
-      color: #00cc66;
-    }
+.green {
+ color: #00cc66;
+}
 
-    .blue-link {
-      color: #0357FC;
-      text-decoration: none;
-    }
+.blue-link {
+ color: #0357FC;
+ text-decoration: none;
+}
 
-    .blue-link:hover {
-      color: #BA04A7;
-    }
+.blue-link:hover {
+ color: #BA04A7;
+}
 
-    .cursor {
-      display: inline-block;
-      width: 1ch;
-      color: #00cc66;
-    }
+.cursor {
+ display: inline-block;
+ width: 1ch;
+ color: #00cc66;
+}
 
-    .blink {
-      animation: blink 1s steps(1) infinite;
-    }
+.blink {
+ animation: blink 1s steps(1) infinite;
+}
 
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      50.1%, 100% { opacity: 0; }
-    }
+@keyframes blink {
+ 0%, 50% { opacity: 1; }
+ 50.1%, 100% { opacity: 0; }
+}
 
-    /* Random flickering effect on the green margin */
-    @keyframes flicker {
-      0% { opacity: 1; }
-      50% { opacity: 0.9; }
-      51% { opacity: 1; }
-      52% { opacity: 0.8; }
-      100% { opacity: 1; }
-    }
+ @keyframes flicker {
+ 0% { opacity: 1; }
+ 50% { opacity: 0.9; }
+ 51% { opacity: 1; }
+ 52% { opacity: 0.8; }
+ 100% { opacity: 1; }
+}
 
-    #terminal {
-      animation: flicker 10s infinite;  
-    }
+#terminal {
+ animation: flicker 10s infinite;  
+}
 
-    /* Define the subtle screen jam effect */
-    @keyframes screenJam {
-      0% { transform: translateX(0); }
-      50% { transform: translateX(-0.5px); }   /* Move slightly right */
-      51% { transform: translateX( 0.5px); }  /* Move slightly left */
-      52% { transform: translateX( 0); }
-      100% { transform: translateX(0); }    /* Return to original position */
-    }
+ @keyframes screenJam {
+ 0% { transform: translateX(0); }
+ 50% { transform: translateX(-0.5px); }  
+ 51% { transform: translateX( 0.5px); } 
+ 52% { transform: translateX( 0); }
+ 100% { transform: translateX(0); }  
+}
 
-    #terminal {
-      animation: screenJam 5s ease-in-out infinite;  
-    }
+#terminal {
+ animation: screenJam 5s ease-in-out infinite;  
+}
 
-    /* Mobile and tablet adjustments */
-    @media (max-width: 768px) {
-      body {
-        padding: 0 5vw; /* Adjust the margin for mobile */
-        padding-top: 5vh; /* 5% margin at the top */
-      }
+@media (max-width: 1024px) {
+ body {
+ padding: 0 5vw; 
+ padding-top: 5vh; 
+}
 
-      #terminal {
-        width: 90vw; /* Adjust terminal width for mobile */
-        height: 100vw; /* Square terminal for mobile */
-        margin-top: 0vh; /* Top margin of 5% of the viewport height */
-        padding: 5%; /* Padding inside terminal */
-        font-size: calc(0.2vw + 1vh); /* Adjust the font size dynamically based on viewport */
-      }
+#terminal {
+ width: 90vw;
+ height: 60vw;
+ margin-top: 0vh;
+ padding: 5%;
+ font-size: 4.3vw;
+ }
+      
+#terminal-text {
+ padding-left: 5%;
+ padding-right: 5%;
+ }
+}
 
-      #terminal-text {
-        padding-left: 5%; /* Maintain consistent padding on the left */
-        padding-right: 5%; /* Maintain consistent padding on the right */
-      }
-    }
+}
 
-    /* Portrait Mode: When mobile is in portrait orientation */
-    @media (orientation: portrait) and (max-width: 1500px) {
-      #terminal {
-        width: 90vw; /* Terminal takes 90% of the screen width */
-        height: 60vw; /* Square terminal */
-        margin-top: 0vh; /* Top margin set to 5% of screen height */
-        padding: 5%; /* 5% padding on all sides */
-        font-size: 4.3vw; /* Dynamic font size for portrait */
-      }
-    }
-  </style>
+ </style>
 </head>
 <body>
   <div id="terminal">
@@ -156,13 +137,12 @@
       { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },  // Seventh line with additional delay
       { text: '............................' }
     ];
- 
+
     const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
 
     let i = 0;
     let blinkCount = 0;  // Counter to track the number of blinks
 
-    // Function to simulate a glitch effect on random characters in any line
     function glitchTextEffect(div, originalText) {
       const randomPos = Math.floor(Math.random() * originalText.length);
       const charAtPos = originalText[randomPos];
@@ -171,7 +151,6 @@
         return;  // Skip changing dots and the number 0
       }
 
-      // Randomly choose from uppercase, lowercase, digits, and symbols
       const randomChar = String.fromCharCode(Math.floor(Math.random() * 94) + 33); // ASCII range from 33 (!) to 126 (~)
 
       const textArray = originalText.split('');
@@ -236,7 +215,6 @@
 
         terminalText.appendChild(cursorDiv);
 
-        // Modify the blinking behavior to introduce a small delay every 3rd blink
         setInterval(() => {
           blinkCount++;
           if (blinkCount % 5 === 0) {
@@ -248,7 +226,6 @@
       }
     }
 
-    // Glitch every 5 seconds on all lines (excluding the prompt and cursor)
     function startGlitch() {
       glitchInterval = setInterval(() => {
         const allDivs = terminalText.getElementsByTagName('div'); // Get all the divs (lines)
