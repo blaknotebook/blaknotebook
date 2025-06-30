@@ -73,13 +73,17 @@ body {
 
  @keyframes flicker {
  0% { opacity: 1; }
- 50% { opacity: 0.9; }
+ 50% { opacity: 0.7; }
  51% { opacity: 1; }
- 52% { opacity: 0.8; }
+ 52% { opacity: 0.9; }
  100% { opacity: 1; }
 }
 
 #terminal {
+ animation: flicker 10s infinite;  
+}
+
+#terminal-text {
  animation: flicker 10s infinite;  
 }
 
@@ -93,31 +97,6 @@ body {
 
 #terminal {
  animation: screenJam 5s ease-in-out infinite;  
-}
-
-@media (max-width: 1024px) {
- body {
- padding: 2vh; 
- padding-top: 2vh;
- display: flex;
- flex-direction: column; 
- justify-content: flex-start; 
- align-items: center; 
- height: 100vh;  
-}
-
-#terminal {
- width: 90vw;
- height: 70vw;
- margin-top: 0vh;
- padding: 5%;
- font-size: 4.3vw;
- }
-      
-#terminal-text {
- padding-left: 5%;
- padding-right: 5%;
- }
 }
 
 }
