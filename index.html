@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>blak notebook™</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
@@ -17,7 +17,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 #terminal {
@@ -46,54 +46,54 @@ body {
 }
 
 .green {
- color: #00cc66;
+  color: #00cc66;
 }
 
 .blue-link {
- color: #0357FC;
- text-decoration: none;
+  color: #0357FC;
+  text-decoration: none;
 }
 
 .blue-link:hover {
- color: #BA04A7;
+  color: #BA04A7;
 }
 
 .cursor {
- display: inline-block;
- width: 1ch;
- color: #00cc66;
+  display: inline-block;
+  width: 1ch;
+  color: #00cc66;
 }
 
 .blink {
- animation: blink 1s steps(1) infinite;
+  animation: blink 1s steps(1) infinite;
 }
 
 @keyframes blink {
- 0%, 50% { opacity: 1; }
- 50.1%, 100% { opacity: 0; }
+  0%, 50% { opacity: 1; }
+  50.1%, 100% { opacity: 0; }
 }
 
 @keyframes flicker {
- 0% { opacity: 1; }
- 50% { opacity: 0.7; }
- 51% { opacity: 1; }
- 52% { opacity: 0.9; }
- 100% { opacity: 1; }
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  51% { opacity: 1; }
+  52% { opacity: 0.9; }
+  100% { opacity: 1; }
 }
 
 @keyframes screenJam {
- 0% { transform: translateX(0); }
- 50% { transform: translateX(-0.5px); }  
- 51% { transform: translateX( 0.5px); } 
- 52% { transform: translateX( 0); }
- 100% { transform: translateX(0); }  
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-0.5px); }
+  51% { transform: translateX(0.5px); }
+  52% { transform: translateX(0); }
+  100% { transform: translateX(0); }
 }
 
 #update-label {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 10px;
-  font-size: 14px;
+  font-size: 13px;
   font-family: 'Share Tech Mono', monospace;
   color: red;
   background-color: rgba(0, 0, 0, 0.6);
@@ -102,6 +102,7 @@ body {
   border-radius: 3px;
   animation: flickerRed 1.2s infinite;
   z-index: 999;
+  display: none;
 }
 
 @keyframes flickerRed {
@@ -112,35 +113,35 @@ body {
 }
 
 @media (max-width: 768px) {
- body {
-   padding: 1%;
- }
+  body {
+    padding: 1%;
+  }
 
- #terminal {
-   width: 90vw;
-   height: 60vw; 
-   padding: 5%;
-   font-size: 4.3vw; 
-   margin-top: 0vh;        
- }
+  #terminal {
+    width: 90vw;
+    height: 70vw;
+    padding: 5%;
+    font-size: 4.3vw;
+    margin-top: 0vh;
+  }
 
- #terminal-text {
-   padding-left: 5%;
-   padding-right: 5%;
- }
+  #terminal-text {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 
- #update-label {
-   font-size: 2.8vw;
-   top: 3px;
-   right: 5px;
- }
+  #update-label {
+    font-size: 2.1vw;
+    top: 3px;
+    right: 5px;
+  }
 }
   </style>
 </head>
 <body>
   <div id="terminal">
     <div id="terminal-text"></div>
-    <div id="update-label">NEW UPDATE 00/00/00</div>
+    <div id="update-label">new update 00/00/00</div>
   </div>
 
   <script>
@@ -149,7 +150,7 @@ body {
     const lines = [
       { text: 'b:\\games\\horror\\document>dir', className: 'green' },
       { text: '............................' },
-      { text: '*58,444 bytes [document.rar]' }, 
+      { text: '*58,444 bytes [document.rar]' },
       { text: 'blak notebook™ © 2025 [game]' },
       { text: 'comedy horror document tnpcg' },
       { text: '............................' },
@@ -165,11 +166,9 @@ body {
     function glitchTextEffect(div, originalText) {
       const randomPos = Math.floor(Math.random() * originalText.length);
       const charAtPos = originalText[randomPos];
-
       if (charAtPos === '.' || charAtPos === '0') return;
 
       const randomChar = String.fromCharCode(Math.floor(Math.random() * 94) + 33);
-
       const textArray = originalText.split('');
       textArray[randomPos] = randomChar;
       div.textContent = textArray.join('');
@@ -236,6 +235,11 @@ body {
           blinkCount++;
           blinkingCursor.style.animationDuration = (blinkCount % 5 === 0) ? '1.5s' : '1s';
         }, 1000);
+
+        setTimeout(() => {
+          const updateLabel = document.getElementById('update-label');
+          if (updateLabel) updateLabel.style.display = 'block';
+        }, 11400);
       }
     }
 
