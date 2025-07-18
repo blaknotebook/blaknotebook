@@ -1,248 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>blak notebook™</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>blak notebook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-body {
-  margin: 0;
-  padding: 0;
-  background-color: black;
-  color: #F7EDED;
-  font-family: 'Courier New', monospace;
-  white-space: pre-wrap;
-  word-break: break-word;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
-#terminal {
-  width: 500px;
-  height: 420px;
-  background-color: #171f1f;
-  color: #F7EDED;
-  font-size: 26.65px;
-  line-height: 1.7;
-  padding: 3%;
-  margin-top: 0;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  position: relative;
-}
+    .title {
+      font-size: 2rem;
+      margin-bottom: 4vh;
+    }
 
-#terminal-text {
-  width: 100%;
-  text-align: left;
-  padding-left: 5%;
-  padding-right: 5%;
-}
+    .scene {
+      width: 80vw;
+      max-width: 512px;
+      height: auto;
+      image-rendering: pixelated;
+    }
 
-.green {
- color: #00cc66;
-}
+    .start-button {
+      margin-top: 5vh;
+      font-size: 1.2rem;
+      color: white;
+      text-decoration: none;
+      border: 2px solid white;
+      padding: 1rem 2rem;
+      display: inline-block;
+      animation: hauntedFlicker 1.4s infinite;
+      transition: background 0.2s, color 0.2s;
+    }
 
-.blue-link {
- color: #0357FC;
- text-decoration: none;
-}
+    .start-button:hover {
+      background: white;
+      color: black;
+      animation: none;
+    }
 
-.blue-link:hover {
- color: #BA04A7;
-}
+    @keyframes hauntedFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; } 
+      100% { opacity: 1; }
+    }
 
-.cursor {
- display: inline-block;
- width: 1ch;
- color: #00cc66;
-}
-
-.blink {
- animation: blink 1s steps(1) infinite;
-}
-
-@keyframes blink {
- 0%, 50% { opacity: 1; }
- 50.1%, 100% { opacity: 0; }
-}
-
- @keyframes flicker {
- 0% { opacity: 1; }
- 50% { opacity: 0.7; }
- 51% { opacity: 1; }
- 52% { opacity: 0.9; }
- 100% { opacity: 1; }
-}
-
-#terminal {
- animation: flicker 10s infinite;  
-}
-
-#terminal-text {
- animation: flicker 10s infinite;  
-}
-
- @keyframes screenJam {
- 0% { transform: translateX(0); }
- 50% { transform: translateX(-0.5px); }  
- 51% { transform: translateX( 0.5px); } 
- 52% { transform: translateX( 0); }
- 100% { transform: translateX(0); }  
-}
-
-#terminal {
- animation: screenJam 5s ease-in-out infinite;  
-}
-
-@media (max-width: 768px) {
- body {
- padding: 5%;
- margin-top: 5%;
-}
-
-#terminal {
- width: 90vw;
- height: 70vw; 
- padding: 5%;
- font-size: 4.15vw; 
- margin-top: 0vh;        
-}
-
-#terminal-text {
-        padding-left: 5%; /* Maintain consistent padding on the left */
-        padding-right: 5%; /* Maintain consistent padding on the right */
+    @media (max-width: 600px) {
+      .title {
+        font-size: 19px;
       }
-
-}
-
-
- </style>
+      .start-button {
+        font-size: 16px;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="terminal">
-    <div id="terminal-text"></div>
-  </div>
 
-  <script>
-    const terminalText = document.getElementById('terminal-text');
+  <div class="title">blak notebook™</div>
 
-    const lines = [
-      { text: 'b:\\blkntbk\\updt\\july2025>dir', className: 'green' },  // First line
-      { text: '............................' },
-      { text: '*58,444 bytes [document.rar]' }, 
-      { text: 'blak notebook™ © 2025 [nsfw]' },
-      { text: 'comedy horror document ttnpg' },
-      { text: '............................' },
-      { text: 'download_document.rar  [ ↓ ]', className: 'blue-link' },  // Seventh line with additional delay
-      { text: '............................' }
-    ];
+  <img src="scene.gif" class="scene" alt="animated intro scene">
 
-    const downloadHref = "https://www.dropbox.com/scl/fi/f5iebmpz1u4no4w8kjdvb/document.rar?rlkey=yew6c7vpnhhgzjc313i6nt76p&dl=1";
+  <a href="zine.html" class="start-button">press start</a>
 
-    let i = 0;
-    let blinkCount = 0;  // Counter to track the number of blinks
-
-    function glitchTextEffect(div, originalText) {
-      const randomPos = Math.floor(Math.random() * originalText.length);
-      const charAtPos = originalText[randomPos];
-
-      if (charAtPos === '.' || charAtPos === '0') {
-        return;  // Skip changing dots and the number 0
-      }
-
-      const randomChar = String.fromCharCode(Math.floor(Math.random() * 94) + 33); // ASCII range from 33 (!) to 126 (~)
-
-      const textArray = originalText.split('');
-      textArray[randomPos] = randomChar;
-      div.textContent = textArray.join('');
-
-      const glitchDuration = Math.floor(Math.random() * 1500) + 500;
-      setTimeout(() => {
-        div.textContent = originalText;
-      }, glitchDuration);
-    }
-
-    function typeLine({ text, className = '' }, callback, delay = 30) {
-      const div = document.createElement('div');
-      if (className) div.classList.add(className);
-      terminalText.appendChild(div);
-
-      let j = 0;
-      const interval = setInterval(() => {
-        div.textContent += text[j];
-        j++;
-
-        if (j >= text.length) {
-          clearInterval(interval);
-          if (text.includes("download_document.rar")) {
-            const a = document.createElement('a');
-            a.href = downloadHref;
-            a.className = 'blue-link';
-            a.textContent = 'download_document.rar  [ ↓ ]';
-            div.innerHTML = '';
-            div.appendChild(a);
-          }
-          callback();
-        }
-      }, delay); // Typing delay
-    }
-
-    function typeAllLines() {
-      const delayBeforeSecondLine = 2000;  // 2 seconds delay before second line starts
-      const delayBeforeSecondLineAdjusted = delayBeforeSecondLine * 0.8; // 0.8 times the current second line delay
-      const delayBeforeDownload = delayBeforeSecondLineAdjusted * 1.2;  // 1.2 times the adjusted delay for seventh line
-
-      if (i < lines.length) {
-        setTimeout(() => {
-          typeLine(lines[i], () => {
-            i++;
-            typeAllLines();
-          }, (i === 0) ? 150 : 30);  // First line typed slower (150ms) and the rest with regular speed (30ms)
-        }, (i === 1) ? delayBeforeSecondLineAdjusted : (i === 6) ? delayBeforeDownload : 0);  // Apply the specific delays
-      } else {
-        const cursorDiv = document.createElement('div');
-        cursorDiv.classList.add('green');
-
-        const prompt = document.createElement('span');
-        prompt.textContent = 'b:>';
-        cursorDiv.appendChild(prompt);
-
-        const blinkingCursor = document.createElement('span');
-        blinkingCursor.className = 'cursor blink';
-        blinkingCursor.textContent = '_';
-        cursorDiv.appendChild(blinkingCursor);
-
-        terminalText.appendChild(cursorDiv);
-
-        setInterval(() => {
-          blinkCount++;
-          if (blinkCount % 5 === 0) {
-            blinkingCursor.style.animationDuration = '1.5s';  // Delay for every 3rd blink
-          } else {
-            blinkingCursor.style.animationDuration = '1s';  // Regular blink duration
-          }
-        }, 1000);  // Update every 1 second to check the count
-      }
-    }
-
-    function startGlitch() {
-      glitchInterval = setInterval(() => {
-        const allDivs = terminalText.getElementsByTagName('div'); // Get all the divs (lines)
-        for (let div of allDivs) {
-          if (div.textContent.length > 0 && !div.textContent.includes('b:>') && !div.textContent.includes('_')) {
-            glitchTextEffect(div, div.textContent);  // Apply glitch effect on each line except b:> and _ 
-          }
-        }
-      }, 5000);  // Trigger glitch every 5 seconds
-    }
-
-    typeAllLines();
-    startGlitch();  // Start glitch effect after typing starts
-  </script>
 </body>
 </html>
