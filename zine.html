@@ -23,17 +23,16 @@
     .zine-subtitle {
       color: white;
       font-size: 1.2rem;
-      margin-bottom: 0vh;
     }
 
     .link-list {
-      margin-top: 0vh;
+      margin-top: 2vh;
     }
 
     .zine-link {
       display: block;
       font-size: 1.2rem;
-      margin: 0vh 0;
+      margin: 0.3vh 0;
       text-decoration: none;
       color: #00ff99;
       transition: color 0.2s ease;
@@ -72,7 +71,6 @@
     @media (max-width: 600px) {
       .zine-subtitle {
         font-size: 16px;
-        margin-bottom: 0.5vh;
       }
 
       .zine-link {
@@ -109,7 +107,19 @@
     </a>
   </div>
 
-  <a href="index.html" class="exit-button">save & exit</a>
+  <a href="#" class="exit-button" onclick="downloadAndExit(event)">save & exit</a>
+
+  <script>
+    function downloadAndExit(event) {
+      event.preventDefault();
+
+      window.open("https://www.dropbox.com/scl/fi/scgq76gefobprhukzeyfb/blak_notebook.zip?rlkey=1fp6uaeh2uynqtv3mcsvx5zec&dl=1", "_blank");
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
+    }
+  </script>
 
 </body>
 </html>
