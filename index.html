@@ -34,22 +34,18 @@
       image-rendering: pixelated;
     }
 
-    .start-button {
+    .dummy-button {
       margin-top: 5vh;
       font-size: 1.2rem;
-      color: white;
+      color: black;
+      background-color: black;
       text-decoration: none;
-      border: 2px solid white;
+      border: 2px solid black;
       padding: 1rem 2rem;
       display: inline-block;
       animation: hauntedFlicker 1.4s infinite;
       transition: background 0.2s, color 0.2s;
-    }
-
-    .start-button:hover {
-      background: white;
-      color: black;
-      animation: none;
+      pointer-events: none; /* Prevents clicks */
     }
 
     @keyframes hauntedFlicker {
@@ -62,20 +58,23 @@
       .title {
         font-size: 19px;
       }
-      .start-button {
+      .dummy-button {
         font-size: 16px;
         padding: 0.8rem 1.5rem;
       }
     }
   </style>
+  <script>
+    setTimeout(function() {
+      window.location.href = "press_start.html";
+    }, 2000);
+  </script>
 </head>
 <body>
 
-  <div class="title">blak notebook™</div>
-
-  <img src="press_start.gif" class="scene" alt="animated intro scene">
-
-  <a href="save_&_exit.html" class="start-button">press start</a>
+  <div class="title">loading.......</div>
+  <img src="press_start.png" class="scene" alt="loading scene">
+  <div class="dummy-button">press start</div>
 
 </body>
 </html>
