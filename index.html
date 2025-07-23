@@ -3,78 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>blak notebook</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>blak notebook / loading</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
+      background: black;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    .title {
-      font-size: 2rem;
-      margin-bottom: 4vh;
-    }
-
-    .scene {
-      width: 80vw;
+    img {
+      width: 90vw;
       max-width: 512px;
       height: auto;
       image-rendering: pixelated;
     }
-
-    .dummy-button {
-      margin-top: 5vh;
-      font-size: 1.2rem;
-      color: black;
-      background-color: black;
-      text-decoration: none;
-      border: 2px solid black;
-      padding: 1rem 2rem;
-      display: inline-block;
-      animation: hauntedFlicker 1.4s infinite;
-      transition: background 0.2s, color 0.2s;
-      pointer-events: none; /* Prevents clicks */
-    }
-
-    @keyframes hauntedFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; } 
-      100% { opacity: 1; }
-    }
-
-    @media (max-width: 600px) {
-      .title {
-        font-size: 19px;
-      }
-      .dummy-button {
-        font-size: 16px;
-        padding: 0.8rem 1.5rem;
-      }
-    }
   </style>
   <script>
-    setTimeout(function() {
-      window.location.href = "press_start.html";
-    }, 2000);
+    setTimeout(() => {
+      window.location.href = "start.html";
+    }, 2500);
   </script>
 </head>
 <body>
 
-  <div class="title">loading.......</div>
-  <img src="press_start.png" class="scene" alt="loading scene">
-  <div class="dummy-button">press start</div>
+  <img src="index.gif" alt="loading...">
 
 </body>
 </html>
