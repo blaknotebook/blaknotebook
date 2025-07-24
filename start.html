@@ -27,25 +27,21 @@
       image-rendering: pixelated;
     }
 
- @media (max-width: 768px) {
+    @media (max-width: 768px) {
       img {
         width: 90vw;
         height: auto;
       }
- }
+    }
   </style>
 </head>
 <body>
 
-  <a href="read.html" onclick="downloadZip()">
+  <!-- Just go to read.html. The download will happen from there -->
+  <a href="read.html">
     <img src="start.gif" alt="start">
   </a>
 
-  <script>
-    function downloadZip() {
-      window.open("https://www.dropbox.com/scl/fi/scgq76gefobprhukzeyfb/blak_notebook.zip?rlkey=1fp6uaeh2uynqtv3mcsvx5zec&dl=1", "_blank");
-    }
-  </script>
-
 </body>
 </html>
+
